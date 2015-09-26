@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+    <div id="name">
+
+    </div>
+    <input type="text"/>
+    <button>
+        Update the view
+    </button>
+    <script>
+
+        var model = {
+            name: 'John'
+        };
+
+        function view(data) {
+            var div = document.querySelector('#name');
+            div.innerHTML = data.name;
+        }
+
+        view(model);
+
+        function init () {
+            // updating the view once the model changes
+            // ES7 , not available ES5
+            Object.observe(model, function (changes) {
+                console.log(changes);
+                view(model);
+            });
+        }
+
+        init();
+
+        model.name = 'Rhonda';
+
+        document.querySelector('button').addEventListener('click', function () {
+            model.name = 'John';
+        });
+
+       var inp = document.querySelector('input');
+       inp.addEventListener('keypress', function (event) {
+            /*if (event.keyCode === 13) {
+                model.name = inp.value;
+            }*/
+            model.name = this.value;
+        });
+
+
+
+    </script>
+</body>
+</html>
