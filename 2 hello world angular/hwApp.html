@@ -2,17 +2,51 @@
 <html lang="en" ng-app="hwApp">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../{{cssFileName}}"/>
     <script src="../bower_components/angular/angular.js"></script>
     <script>
 
-        angular.module('hwApp', []);
+
+        var hwApp = angular.module('hwApp', [])
+
+        hwApp.run(function ($rootScope, $http) {
+            $rootScope.term = 'scope of RootScope';
+            $rootScope.cssFileName = 'base.css';
+        });
+
+        hwApp.controller('MyController', function ($scope) {
+            //var vm = this;
+            $scope.term = 'scope of MyController';
+            $scope.data = 'info from MyController';
+            this.info = 'info from MyController\'s context';
+        });
+
+        hwApp.controller('Controller2', function ($scope) {
+            $scope.term = 'scope of Controller2';
+            this.info = 'Controller2 info';
+        });
 
     </script>
 </head>
 <body>
 
+    <input type="text" ng-model="cssFileName"/>
     <input type="text" ng-model="term"/>
     <div>{{term}}</div>
+
+    <section ng-controller="MyController as myc">
+        <div>{{term}}</div>
+        <div>{{cssFileName}}</div>
+        <div>{{myc.info}}</div>
+        <div> Not in vm: {{myc.term}}</div>
+        <hr/>
+        <div ng-controller="Controller2 as c2">
+            {{c2.info}}
+            {{myc.info}}
+            {{term}}
+        </div>
+        <hr/>
+    </section>
 
     <ol>
         <li>Script src the angular file</li>

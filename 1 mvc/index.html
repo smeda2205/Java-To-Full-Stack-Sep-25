@@ -4,6 +4,32 @@
     <meta charset="UTF-8">
     <title></title>
 
+    <script>
+
+        document.addEventListener('readystatechange', function () {
+            if (document.readyState === 'complete') {
+                // all async content has loaded -- img, iframes, async scripts
+            }
+        });
+
+        window.addEventListener('load', function () {
+                // all async content has loaded -- img, iframes, async scripts
+        });
+
+        // window.onload = function () {}
+
+        function test() {
+            console.log(this);
+        }
+
+        test(); // window
+        test.call({
+            name: 'John'
+        }); // {name: John}
+
+
+    </script>
+
 </head>
 <body>
     <div id="name">
